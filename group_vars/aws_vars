@@ -14,7 +14,7 @@ aws:
   bucket: rename-me
   vpc: 
     # The absence or presence of subnets deletes or creates them respectively.
-    hale_vpc:
+    KEVPC:
       cidr_block: 10.0.0.0/16
       resource_tags:
         Name: 'KEVPC'
@@ -93,7 +93,7 @@ ec2_instances:
 #      instance_type: db.m3.medium
 #      username: "{{ db.mysql_user }}"
 #      password: "{{ db.mysql_pass }}"
-#      subnet: hale-rds-subnet-group
+#      subnet: rds_sg
 #      vpc_security_groups: "{{ sg.results[1].group_id }}"
 #      tags:
 #        name: 'APEX_DB'
