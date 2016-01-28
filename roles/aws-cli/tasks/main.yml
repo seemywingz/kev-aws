@@ -1,4 +1,9 @@
 
+- name: Include Variables
+  include_vars: "{{ item }}"
+  with_items:
+    - group_vars/aws_vars
+
 - name: Install python
   homebrew:
     name=python
@@ -9,6 +14,7 @@
     name=pip
 
 - name: Install boto and aws-cli via pip
+  become: yes
   pip:
     name={{ item }}
   with_items:

@@ -51,12 +51,12 @@ aws:
            to_port: 443
            cidr_ip: 0.0.0.0/0
          - proto: all
-           cidr_ip: 204.210.139.149/32 #allow all emn traffic
+           cidr_ip: 204.210.139.149/32 #allow all kev traffic
          - proto: all
            cidr_ip: 10.0.0.0/16 #allow internal traffic
        rules_egress: # allows all outgoing traffic
-    rds_security_group:
-      name: rds_security_group
+    rds_sg:
+      name: rds_sg
       description: allow connections to rds
       rules:
         - proto: tcp

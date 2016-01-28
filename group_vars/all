@@ -17,10 +17,8 @@ packages:
     - python-pip
     - htop
 
-
 key:
   pub: ~/.ssh/id_rsa.pub
-
   
 acl:
   permissions:
