@@ -5,17 +5,6 @@
     - vault/cyphers
     - group_vars/aws_vars
 
-# - name: Get VPC Info
-#   shell: "aws ec2 describe-vpcs --region {{ aws.env.EC2_REGION }}"
-#   register: vpc_info
-#   tags:
-#     - info
-#
-# - name: debug vpc_info
-#   debug: msg="{{ (vpc_info.stdout|from_json).Vpcs[0].VpcId }}"
-#   tags:
-#     - info
-
 - name: Create AWS VPC
   environment: "{{ aws.env }}"
   ec2_vpc:
