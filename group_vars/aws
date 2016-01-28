@@ -1,0 +1,99 @@
+
+aws_cli:
+  url: https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
+  zip: /tmp/awscli-bundle.zip
+  dir: /tmp/
+
+aws:
+  env: 
+    AWS_ACCESS_KEY_ID: "{{ AWS_ACCESS_KEY_ID }}"
+    AWS_SECRET_ACCESS_KEY: "{{ AWS_SECRET_ACCESS_KEY }}"
+    EC2_REGION: us-east-1
+  region: us-east-1
+  key: KEVPC
+  bucket: rename-me
+  vpc: 
+    # The absence or presence of subnets deletes or creates them respectively.
+    hale_vpc:
+      cidr_block: 10.0.0.0/16
+      resource_tags:
+        Name: 'KEVPC'
+      subnets:
+        - cidr: 10.0.0.0/24                  #0
+          az: us-east-1a
+          resource_tags: { "Tier" : "Web" }
+        - cidr: 10.0.1.0/24                  #1
+          az: us-east-1a
+          resource_tags: { "Tier" : "RDS" }
+        - cidr: 10.0.100.0/24                #2
+          az: us-east-1b
+          resource_tags: { "Tier" : "RDS" }
+      route_tables:
+        - subnets:
+            - 10.0.0.0/24
+            - 10.0.1.0/24
+            - 10.0.100.0/24
+          routes:
+            - dest: 0.0.0.0/0
+              gw: igw
+  security_groups: 
+    # blank rules/rules_egress will allow all traffic
+    web_sg:
+       name: web_sg
+       description: allow connections on ports 80 and 443
+       rules:
+         - proto: tcp
+           from_port: 80
+           to_port: 80
+           cidr_ip: 0.0.0.0/0
+         - proto: tcp
+           from_port: 443
+           to_port: 443
+           cidr_ip: 0.0.0.0/0
+         - proto: all
+           cidr_ip: 204.210.139.149/32 #allow all emn traffic
+         - proto: all
+           cidr_ip: 10.0.0.0/16 #allow internal traffic
+       rules_egress: # allows all outgoing traffic
+    rds_security_group:
+      name: rds_security_group
+      description: allow connections to rds
+      rules:
+        - proto: tcp
+          from_port: 3306
+          to_port: 3306
+          cidr_ip: 10.0.0.0/24
+        - proto: all
+          cidr_ip: 10.0.0.0/16 #allow internal traffic
+      rules_egress: # allows all outgoing traffic
+
+ec2_instances:
+  APEX:
+    image: ami-d05e75b8 # ubuntu 14.04
+    key: "{{ aws.key }}"
+    type: t2.micro
+    group: web_sg
+    vpc_subnet_id: "{{ vpc.results[0].subnets[0].id }}" # Teir: Web
+    assign_publick_ip: yes 
+    tags: # must provide Name to ensure only one instance is created 
+      Name: APEX
+
+#rds:
+#  subnet_groups:
+#    rds_sg:
+#      description: RDS Subnet Group
+#      subnets:
+#        - "{{ vpc.results[0].subnets[1].id }}" # Tier: RDS
+#        - "{{ vpc.results[0].subnets[2].id }}" # Tier: RDS
+#  instances:
+#    APEX_DB:
+#      db_name: "{{ db.mysql_db }}"
+#      db_engine: MySQL
+#      size: 10
+#      instance_type: db.m3.medium
+#      username: "{{ db.mysql_user }}"
+#      password: "{{ db.mysql_pass }}"
+#      subnet: hale-rds-subnet-group
+#      vpc_security_groups: "{{ sg.results[1].group_id }}"
+#      tags:
+#        name: 'APEX_DB'

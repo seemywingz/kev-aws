@@ -1,0 +1,28 @@
+# Group Vars for wp-dev-site
+# Maintainer: Kevin
+
+# ssh user
+system_user: ansible
+
+# Packages 
+packages:
+  default:
+    - git
+    - git-doc
+    - vim-gnome
+    - vim-doc
+    - vim-scripts
+    - tmux
+    - zsh
+    - python-pip
+    - htop
+
+
+key:
+  pub: ~/.ssh/id_rsa.pub
+
+  
+acl:
+  permissions:
+    - { dir: '/srv/', entity: '{{ system_user }}', etype: 'user', perms: 'rwx' }
+    - { dir: '/srv/', entity: 'www-data', etype: 'user', perms: 'rwx' }

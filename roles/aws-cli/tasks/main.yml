@@ -1,0 +1,16 @@
+
+- name: Install python
+  homebrew:
+    name=python
+    state=present
+
+- name: Install pip
+  easy_install:
+    name=pip
+
+- name: Install boto and aws-cli via pip
+  pip:
+    name={{ item }}
+  with_items:
+    - boto
+    - awscli
