@@ -1,0 +1,9 @@
+
+
+- name: Configure Systems for Ansible and Terminal Use
+  hosts: aws-machines
+  roles:
+    - { role: system-setup, tags: ['system-setup'] }
+#    - { role: user-setup, tags: ['user-setup'] }
+  tags:
+    - setup

@@ -1,4 +1,4 @@
-# Group Vars for wp-dev-site
+# Group Vars for all machines
 # Maintainer: Kevin
 
 # ssh user
