@@ -61,6 +61,7 @@ aws:
       rules:
         - proto: tcp
           from_port: 3306
+
           to_port: 3306
           cidr_ip: 10.0.0.0/24
         - proto: all
