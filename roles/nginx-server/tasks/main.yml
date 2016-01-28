@@ -1,0 +1,33 @@
+# vim:ft=ansible
+- name: Install Required Web Packages
+  apt: pkg={{ item }} state=present
+  with_items:
+    - nginx-full
+    - apache2-utils
+  become: yes
+
+- name: Create Custom Directories in /etc/nginx
+  file: 
+    path=/etc/nginx/{{ item.dir }}
+    state=directory 
+    owner={{ item.owner }}
+    group={{ item.group }}
+    mode={{ item.mode }}
+  become: yes
+  with_items:
+    - "{{ nginx.custom_dirs }}"
+
+- name: Place Templates
+  template:
+    src={{ item.src }}
+    dest={{ item.dest }}
+    owner=root
+    group=root
+    mode=0644
+  become: yes
+  with_items:
+    - { src: 'blankindex.html.tpl', dest: '/usr/share/nginx/html/index.html' }
+    - { src: 'allowKEV.conf.tpl', dest: '/etc/nginx/kev_conf.d/allowKEV.conf' }
+    - { src: 'nginx.conf.tpl', dest: '/etc/nginx/nginx.conf' }
+  notify: reload nginx
+

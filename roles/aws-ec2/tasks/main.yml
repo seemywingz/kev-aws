@@ -38,6 +38,7 @@
     assign_public_ip: "{{ item.value.assign_publick_ip }}"
     instance_tags: "{{ item.value.tags }}"
     count_tag: "{{ item.value.tags }}"
+    volumes: "{{ item.value.volumes }}"
     exact_count: 1
   register: ec2_results
   with_dict: "{{ ec2_instances }}"

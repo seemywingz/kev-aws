@@ -4,9 +4,14 @@
 apex
 
 
+[system-setup:children]
+aws-machines
 
 [apache-servers:children]
 
 [nginx-servers:children]
+aws-machines
 
 [node-servers:children]
+aws-machines
+

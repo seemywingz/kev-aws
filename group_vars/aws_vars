@@ -74,12 +74,15 @@ aws:
 
 ec2_instances:
   APEX:
-    image: ami-d05e75b8 # ubuntu 14.04
+    image: ami-fce3c696 # ubuntu 14.04
     key: "{{ aws.key }}"
     type: t2.micro
     group: web_sg
     vpc_subnet_id: "{{ vpc.results[0].subnets[0].id }}" # Teir: Web
-    assign_publick_ip: yes 
+    assign_publick_ip: yes
+    volumes:
+      - device_name: /dev/sda1
+        volume_size: 30
     tags: # must provide Name to ensure only one instance is created 
       Name: APEX
 
