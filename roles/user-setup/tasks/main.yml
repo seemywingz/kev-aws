@@ -16,7 +16,6 @@
     mode=0440
   with_items:
     - "{{ system_user }}"
-    - "%emnsysadmin"
   become: yes
 
 - name: Create Keys Directory
