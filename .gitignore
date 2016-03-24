@@ -1,3 +1,4 @@
 /.idea
 /vault/token
 keys/*.pem
+*.retry
