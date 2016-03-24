@@ -22,3 +22,10 @@
     - { role: node-server }
   tags:
     - node
+
+- name: Configure Servers for Capistrano Deploy
+  hosts: node-servers
+  roles:
+    - { role: capistrano-deploy }
+  tags:
+    - capistrano
