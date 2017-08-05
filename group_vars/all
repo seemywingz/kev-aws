@@ -4,20 +4,6 @@
 # ssh user
 system_user: ubuntu
 
-# Packages
-packages:
-  default:
-    - git
-    - git-doc
-    - vim-gnome
-    - vim-doc
-    - vim-scripts
-    - tmux
-    - zsh
-    - python-pip
-    - htop
-
-
 acl:
   permissions:
     - { dir: '/srv/', entity: '{{ system_user }}', etype: 'user', perms: 'rwx' }

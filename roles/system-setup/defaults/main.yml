@@ -1,0 +1,12 @@
+
+# Packages
+system_packages:
+  default:
+    - git
+    - git-doc
+    - vim-gnome
+    - vim-doc
+    - vim-scripts
+    - zsh
+    - python-pip
+    - htop

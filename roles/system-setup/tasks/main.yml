@@ -11,9 +11,18 @@
 
 - name: Install Default Packages
   become: yes
-  apt: pkg={{ item }} state=present
-  with_items: "{{ packages.default }}"
+  apt:
+    pkg={{ item }}
+    state=present
+  with_items:
+    - "{{ system_packages.default }}"
 
-- name: Clean up unused packages
+- name: Remove useless packages from the cache
   become: yes
-  shell: apt-get autoremove --purge -y 
+  apt:
+    autoclean: yes
+
+- name: Remove dependencies that are no longer required
+  become: yes
+  apt:
+    autoremove: yes
