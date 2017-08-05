@@ -4,21 +4,21 @@
   lineinfile:
     state=present
     create=yes
-    dest=/etc/sudoers.d/{{ deploy.user }}
-    line="{{ deploy.user }} ALL=NOPASSWD:{{ deploy.sudo_perms }}"
+    dest=/etc/sudoers.d/{{ cap_deploy.user }}
+    line="{{ cap_deploy.user }} ALL=NOPASSWD:{{ cap_deploy.sudo_perms }}"
     mode=0440
   become: yes
 
 - name: Make Deploy User
   become: yes
   user:
-    name={{ deploy.user }}
+    name={{ cap_deploy.user }}
     createhome=yes
 
 - name: Set up authorized_keys for deployment user.
   become: yes
   authorized_key:
-    user={{ deploy.user }}
+    user={{ cap_deploy.user }}
     key={{ key.pub }}
 
 - name: Set Access Control Lists
@@ -30,7 +30,7 @@
     entity={{ item.entity }}
     permissions={{ item.perms }}
     recursive=yes
-  with_items: "{{ deploy.permissions }}"
+  with_items: "{{ cap_deploy.permissions }}"
 
 - name: Set Default Access Control Lists
   become: yes
@@ -42,4 +42,4 @@
     entity={{ item.entity }}
     permissions={{ item.perms }}
     recursive=yes
-  with_items: "{{ deploy.permissions }}"
+  with_items: "{{ cap_deploy.permissions }}"

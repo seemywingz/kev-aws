@@ -15,9 +15,3 @@ networks:
     - "10.0.1.0/24"
     - "10.0.100.0/24"
     - "204.210.139.149/32"
-
-deploy:
-  user: cap
-  sudo_perms: "/etc/init.d/nginx, /bin/mv, /bin/mkdir, /bin/ln, /usr/sbin/update-rc.d, /bin/chown"
-  permissions:
-    - { dir: '/srv/', entity: 'cap', etype: 'user', perms: 'rwx' }
