@@ -4,11 +4,6 @@
 # ssh user
 system_user: ubuntu
 
-acl:
-  permissions:
-    - { dir: '/srv/', entity: '{{ system_user }}', etype: 'user', perms: 'rwx' }
-    - { dir: '/srv/', entity: 'www-data', etype: 'user', perms: 'rwx' }
-
 nginx:
   custom_dirs:
     - { dir: 'auth', owner: 'root', group: 'root', mode: '0755' }

@@ -1,7 +1,9 @@
 
-- name: Install Required Packages
+- name: Install Required ACL Packages
   become: yes
-  apt: pkg={{ item }} state=present
+  apt:
+    pkg={{ item }}
+    state=present
   with_items:
     - acl
 
@@ -13,9 +15,10 @@
     etype={{ item.etype }}
     entity={{ item.entity }}
     permissions={{ item.perms }}
+    recursive=yes
   with_items: "{{ acl.permissions }}"
 
-- name: Set Default Access Control Lists 
+- name: Set Default Access Control Lists
   become: yes
   acl:
     default=yes
@@ -24,4 +27,5 @@
     etype={{ item.etype }}
     entity={{ item.entity }}
     permissions={{ item.perms }}
+    recursive=yes
   with_items: "{{ acl.permissions }}"

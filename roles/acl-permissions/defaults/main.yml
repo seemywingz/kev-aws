@@ -1,0 +1,5 @@
+
+acl:
+  permissions:
+    - { dir: '/srv/', entity: '{{ system_user }}', etype: 'user', perms: 'rwx' }
+    - { dir: '/srv/', entity: 'www-data', etype: 'user', perms: 'rwx' }
