@@ -17,7 +17,7 @@
     mode={{ item.mode }}
   become: yes
   with_items:
-    - "{{ nginx.custom_dirs }}"
+    - "{{ nginx_custom_dirs }}"
 
 - name: Place Templates
   template:

@@ -1,7 +1,8 @@
-nginx:
-  custom_dirs:
+
+nginx_custom_dirs:
     - { dir: 'auth', owner: 'root', group: 'root', mode: '0755' }
-  networks:
+
+nginx_networks:
     allow:
       - "10.0.0.0/24"
       - "10.0.1.0/24"

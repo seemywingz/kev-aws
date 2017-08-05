@@ -1,3 +1,3 @@
-{% for item in nginx.networks.allow %}
+{% for item in nginx_networks.allow %}
 allow {{ item }};
 {% endfor %}
