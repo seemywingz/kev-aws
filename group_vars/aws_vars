@@ -1,3 +1,8 @@
+# Group Vars for AWS machines
+# Maintainer: Kevin
+
+# ssh user
+system_user: ubuntu
 
 aws_cli:
   url: https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
@@ -5,14 +10,14 @@ aws_cli:
   dir: /tmp/
 
 aws:
-  env: 
+  env:
     AWS_ACCESS_KEY_ID: "{{ AWS_ACCESS_KEY_ID }}"
     AWS_SECRET_ACCESS_KEY: "{{ AWS_SECRET_ACCESS_KEY }}"
     EC2_REGION: us-east-1
   region: us-east-1
   key: KEVPC
   bucket: rename-me
-  vpc: 
+  vpc:
     # The absence or presence of subnets deletes or creates them respectively.
     KEVPC:
       cidr_block: 10.0.0.0/16
@@ -36,7 +41,7 @@ aws:
           routes:
             - dest: 0.0.0.0/0
               gw: igw
-  security_groups: 
+  security_groups:
     # blank rules/rules_egress will allow all traffic
     web_sg:
        name: web_sg
@@ -83,7 +88,7 @@ ec2_instances:
     volumes:
       - device_name: /dev/sda1
         volume_size: 30
-    tags: # must provide Name to ensure only one instance is created 
+    tags: # must provide Name to ensure only one instance is created
       Name: APEX
 
 rds:
