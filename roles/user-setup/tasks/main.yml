@@ -1,11 +1,16 @@
 # vim:ft=ansible
+- name: Include Variables
+  include_vars: "{{ item }}"
+  with_items:
+    - vault/cyphers
+
 - name: Set Authorized Keys
   authorized_key:
     user={{ system_user }}
     key="{{ item }}"
     manage_dir=yes
   with_file:
-    - "{{ key.pub }}"
+    - "{{ user_keys.pub }}"
 
 - name: Passwordless Sudo
   lineinfile:
@@ -16,7 +21,7 @@
     mode=0440
   with_items:
     - "{{ system_user }}"
-  become: yes
+  become: true
 
 - name: Create Keys Directory
   file:
@@ -24,13 +29,13 @@
     state=directory
     mode=700
 
-- name: Configure Dotfiles
-  template:
-      src={{ item.src }}
-      dest=/home/{{ system_user }}/{{ item.dest }}
-  with_items:
-    - { src: 'zshrc.tpl', dest: '.zshrc' }
-    - { src: 'tmux.conf.tpl', dest: '.tmux.conf' }
+# - name: Configure Dotfiles
+#   template:
+#       src={{ item.src }}
+#       dest=/home/{{ system_user }}/{{ item.dest }}
+#   with_items:
+#     - { src: 'zshrc.tpl', dest: '.zshrc' }
+    # - { src: 'tmux.conf.tpl', dest: '.tmux.conf' }
 
 - name: set shell to zsh
   user:

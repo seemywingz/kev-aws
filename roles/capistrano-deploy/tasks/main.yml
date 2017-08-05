@@ -7,22 +7,22 @@
     dest=/etc/sudoers.d/{{ deploy.user }}
     line="{{ deploy.user }} ALL=NOPASSWD:{{ deploy.sudo_perms }}"
     mode=0440
-  sudo: yes
+  become: yes
 
 - name: Make Deploy User
-  sudo: yes
+  become: yes
   user:
     name={{ deploy.user }}
     createhome=yes
 
 - name: Set up authorized_keys for deployment user.
-  sudo: yes
+  become: yes
   authorized_key:
     user={{ deploy.user }}
     key={{ key.pub }}
 
 - name: Set Access Control Lists
-  sudo: yes
+  become: yes
   acl:
     state=present
     name={{ item.dir }}
@@ -33,7 +33,7 @@
   with_items: "{{ deploy.permissions }}"
 
 - name: Set Default Access Control Lists
-  sudo: yes
+  become: yes
   acl:
     default=yes
     state=present

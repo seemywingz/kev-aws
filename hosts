@@ -3,7 +3,6 @@
 [aws-machines]
 apex
 
-
 [system-setup:children]
 aws-machines
 
@@ -15,3 +14,4 @@ aws-machines
 [node-servers:children]
 aws-machines
 
+[cap-deploy:children]
