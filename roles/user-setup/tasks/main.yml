@@ -1,8 +1,4 @@
 # vim:ft=ansible
-# - name: Include Variables
-#   include_vars: "{{ item }}"
-#   with_items:
-#     - vault/cyphers
 
 - name: Set Authorized Keys
   authorized_key:
