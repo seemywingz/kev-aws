@@ -1,16 +1,16 @@
 # vim:ft=ansible
-- name: Include Variables
-  include_vars: "{{ item }}"
-  with_items:
-    - vault/cyphers
+# - name: Include Variables
+#   include_vars: "{{ item }}"
+#   with_items:
+#     - vault/cyphers
 
 - name: Set Authorized Keys
   authorized_key:
     user={{ system_user }}
-    key="{{ item }}"
+    key="{{ lookup('file', item) }}"
     manage_dir=yes
-  with_file:
-    - "{{ user_keys.pub }}"
+  with_items:
+    - "{{ user_keys }}"
 
 - name: Passwordless Sudo
   lineinfile:
