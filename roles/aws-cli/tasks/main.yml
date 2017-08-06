@@ -1,16 +1,7 @@
 ---
 
-- name: Include Variables
-  include_vars: "{{ item }}"
-  with_items:
-    - group_vars/aws_vars
-
-- name: Install python
-  homebrew:
-    name=python
-    state=present
-
 - name: Install pip
+  become: yes
   easy_install:
     name=pip
 

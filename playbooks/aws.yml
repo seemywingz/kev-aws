@@ -1,8 +1,0 @@
-
-- name: Setup AWS
-  hosts: localhost
-  roles:
-    - {role: aws-cli, tags: ['aws-cli']}
-    - {role: aws-vpc, tags: ['aws-vpc']}
-    - {role: aws-ec2, tags: ['aws-ec2']}
-

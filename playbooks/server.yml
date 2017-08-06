@@ -8,6 +8,13 @@
     - { role: acl-permissions, tags: ['acl'] }
   tags:
     - setup
+    
+- name: Configure AWS CLI
+  hosts: aws-machines
+  roles:
+    - { role: aws-cli }
+  tags:
+    - aws-cli
 
 - name: Configure NGINX Servers
   hosts: nginx-servers
@@ -23,9 +30,9 @@
   tags:
     - node
 
-- name: Configure Servers for Capistrano Deploy
-  hosts: cap-deploy
-  roles:
-    - { role: capistrano-deploy }
-  tags:
-    - capistrano
+# - name: Configure Servers for Capistrano Deploy
+#   hosts: cap-deploy
+#   roles:
+#     - { role: capistrano-deploy }
+#   tags:
+#     - capistrano
